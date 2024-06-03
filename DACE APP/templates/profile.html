@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .profile {
+            text-align: center;
+            padding: 20px;
+        }
+        .profile img {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="profile">
+        <h1>TERRATWINE User Profile</h1>
+        <p id="userDetails"></p>
+        <p id="userLocation"></p>
+        <div id="mapScreenshotContainer">
+            <h2>Selected Location</h2>
+            <img id="mapScreenshot" alt="Map Screenshot" />
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const registeredUser = JSON.parse(localStorage.getItem('registeredUser'));
+            const userLocation = JSON.parse(localStorage.getItem('userLocation'));
+            const mapScreenshot = localStorage.getItem('mapScreenshot');
+            
+            document.getElementById('userDetails').innerText = `Name: ${registeredUser.name}, Phone: ${registeredUser.phone}`;
+            document.getElementById('userLocation').innerText = `Location: ${userLocation.lat}, ${userLocation.lng}`;
+            
+            if (mapScreenshot) {
+                document.getElementById('mapScreenshot').src = mapScreenshot;
+            } else {
+                document.getElementById('mapScreenshotContainer').innerText = "No map screenshot available.";
+            }
+        });
+    </script>
+</body>
+</html>
